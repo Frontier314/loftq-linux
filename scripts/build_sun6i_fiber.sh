@@ -18,7 +18,7 @@ KERNEL_VERSION="3.3"
 LICHEE_KDIR=`pwd`
 LICHEE_MOD_DIR==${LICHEE_KDIR}/output/lib/modules/${KERNEL_VERSION}
 
-#CONFIG_CHIP_ID=1633
+CONFIG_CHIP_ID=1633
 
 update_kern_ver()
 {
@@ -161,15 +161,15 @@ build_modules()
 	(
 	unset OUT
 	unset TOP
-	make -C modules/eurasia_km/eurasiacon/build/linux2/sunxi_android LICHEE_MOD_DIR=${LICHEE_MOD_DIR} LICHEE_KDIR=${LICHEE_KDIR}
+	make ARCH=arm CROSS_COMPILE=${CROSS_COMPILE} -C modules/eurasia_km/eurasiacon/build/linux2/sunxi_android LICHEE_MOD_DIR=${LICHEE_MOD_DIR} LICHEE_KDIR=${LICHEE_KDIR}
 	)
 
-	make -C modules/example LICHEE_MOD_DIR=${LICHEE_MOD_DIR} LICHEE_KDIR=${LICHEE_KDIR} \
+	make ARCH=arm CROSS_COMPILE=${CROSS_COMPILE} -C modules/example LICHEE_MOD_DIR=${LICHEE_MOD_DIR} LICHEE_KDIR=${LICHEE_KDIR} \
 		CONFIG_CHIP_ID=${CONFIG_CHIP_ID} install
-	 make -C modules/aw_schw LICHEE_MOD_DIR=${LICHEE_MOD_DIR} LICHEE_KDIR=${LICHEE_KDIR} \
+	 make ARCH=arm CROSS_COMPILE=${CROSS_COMPILE} -C modules/aw_schw LICHEE_MOD_DIR=${LICHEE_MOD_DIR} LICHEE_KDIR=${LICHEE_KDIR} \
 		CONFIG_CHIP_ID=${CONFIG_CHIP_ID} install
 	build_nand_lib
-	make -C modules/nand LICHEE_MOD_DIR=${LICHEE_MOD_DIR} LICHEE_KDIR=${LICHEE_KDIR} \
+	make ARCH=arm CROSS_COMPILE=${CROSS_COMPILE} -C modules/nand LICHEE_MOD_DIR=${LICHEE_MOD_DIR} LICHEE_KDIR=${LICHEE_KDIR} \
 		CONFIG_CHIP_ID=${CONFIG_CHIP_ID} install
 	copy_nand_mod
 
@@ -222,12 +222,12 @@ clean_kernel()
 clean_modules()
 {
 	echo "Cleaning modules"
-	make -C modules/example LICHEE_MOD_DIR=${LICHEE_MOD_DIR} LICHEE_KDIR=${LICHEE_KDIR} clean
+	make ARCH=arm CROSS_COMPILE=${CROSS_COMPILE} -C modules/example LICHEE_MOD_DIR=${LICHEE_MOD_DIR} LICHEE_KDIR=${LICHEE_KDIR} clean
 
 	(
 	unset OUT
 	unset TOP
-	make -C modules/eurasia_km/eurasiacon/build/linux2/sunxi_android LICHEE_MOD_DIR=${LICHEE_MOD_DIR} LICHEE_KDIR=${LICHEE_KDIR} clobber
+	make ARCH=arm CROSS_COMPILE=${CROSS_COMPILE} -C modules/eurasia_km/eurasiacon/build/linux2/sunxi_android LICHEE_MOD_DIR=${LICHEE_MOD_DIR} LICHEE_KDIR=${LICHEE_KDIR} clobber
 	)
 
 #	#build ar6302 sdio wifi module
