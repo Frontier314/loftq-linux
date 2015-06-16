@@ -220,8 +220,8 @@ override CXX := $(if $(V),,@)$(CCACHE) $(CXX) \
  -target $(patsubst %-,%,$(CROSS_COMPILE)) \
  -B$(dir $(shell which $(CROSS_COMPILE)gcc))
 else
-override CC  := $(if $(V),,@)$(CCACHE) $(CROSS_COMPILE)$(CC)
-override CXX := $(if $(V),,@)$(CCACHE) $(CROSS_COMPILE)$(CXX)
+override CC  := $(if $(V),,@)$(CCACHE) $(CC)
+override CXX := $(if $(V),,@)$(CCACHE) $(CXX)
 endif
 else
 override CC  := $(if $(V),,@)$(CCACHE) $(CC)
